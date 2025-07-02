@@ -241,9 +241,9 @@ clean: ## Clean up system and remove unnecessary files
 
 
 install-myPcFixe:
-	sudo tee /etc/fstab << ./config/My/fstab > /dev/null
+	sudo tee -a /etc/fstab < ./config/My/fstab > /dev/null
 
 install-my:
-	yes|sudo pacman -S keepassxc 
+	yes|sudo pacman -S --noconfirm --needed keepassxc 
 
 
