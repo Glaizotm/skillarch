@@ -244,6 +244,6 @@ install-myPcFixe:
 	sudo tee /etc/fstab < ./config/My/fstab
 
 install-my:
-	yes|sudo pacman -S sudo pacman -S keepassxc 
+	yes|sudo pacman -S keepassxc 
 
 
