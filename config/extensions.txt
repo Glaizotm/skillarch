@@ -1,5 +1,6 @@
 bibhasdn.unique-lines
 eriklynd.json-tools
+marp-team.marp-vscode
 mechatroner.rainbow-csv
 mitchdenny.ecdc
 ms-azuretools.vscode-docker
@@ -14,4 +15,5 @@ ms-vsliveshare.vsliveshare
 pomdtr.excalidraw-editor
 trailofbits.weaudit
 yzane.markdown-pdf
+yzhang.markdown-all-in-one
 zobo.php-intellisense

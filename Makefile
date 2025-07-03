@@ -228,7 +228,7 @@ clean: ## Clean up system and remove unnecessary files
 	yes|sudo pacman -Rns $$(pacman -Qtdq) 2>/dev/null || true
 	rm -rf ~/.cache/pip
 	npm cache clean --force 2>/dev/null || true
-	mise cache clear
+	mise cache clearN
 	go clean -cache -modcache -i -r 2>/dev/null || true
 	sudo rm -rf /var/cache/*
 	rm -rf ~/.cache/*
@@ -239,11 +239,18 @@ clean: ## Clean up system and remove unnecessary files
 	sudo find /var/log -type f -name "*.gz" -delete
 	sudo find /var/log -type f -exec truncate --size=0 {} \;
 
-
 install-myPcFixe:
-	sudo tee -a /etc/fstab < ./config/My/fstab > /dev/null
+# sudo tee -a /etc/fstab < ./config/My/fstab > /dev/null
+	@ln -snf /DATA/Documents ~/Documents
+	@ln -snf /DATA/Obsidian ~/Obsidian
+	@ln -snf /DATA/Projets ~/Projets
 
 install-my:
-	yes|sudo pacman -S --noconfirm --needed keepassxc 
+	yes|sudo pacman -Syyu
+	yes|sudo pacman -Syy
+	yes|sudo pacman -S --noconfirm --needed keepassxc obsidian calibre thunderbird darktable simple-scan
+	yes|sudo pacman -S --noconfirm --needed texlive-latex  texlive-latexextra  texlive-latexrecommended texlive pandoc-cli
+
+
 
 
