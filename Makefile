@@ -246,10 +246,15 @@ install-myPcFixe:
 	@ln -snf /DATA/Projets ~/Projets
 
 install-my:
-	yes|sudo pacman -Syyu
-	yes|sudo pacman -Syy
-	yes|sudo pacman -S --noconfirm --needed keepassxc obsidian calibre thunderbird darktable simple-scan
-	yes|sudo pacman -S --noconfirm --needed texlive-latex  texlive-latexextra  texlive-latexrecommended texlive pandoc-cli
+#	yes|sudo pacman -Syyu
+#	yes|sudo pacman -Syy
+#	yes|sudo pacman -S --noconfirm --needed drawio-desktop keepassxc obsidian calibre thunderbird darktable simple-scan syncthing
+#	yes|sudo pacman -S --noconfirm --needed texlive-latex  texlive-latexextra  texlive-latexrecommended texlive pandoc-cli
+	[ ! -d ~/home/Documents/ThemeSSR/ ] && git clone --depth=1 https://gitlab.com/willo22/ThemeSSR.git ~/home/Documents/ThemeSSR/
+	sudo chmod +x ~/home/Documents/ThemeSSR/scripts/*.sh
+	sudo ln -snf ~/home/Documents/ThemeSSR/scripts/*.sh /usr/local/bin/
+	[ ! -d ~/.pandoc/filter ] && mkdir -p ~/.pandoc/filter 
+	cp ~/home/Documents/ThemeSSR/scripts/cachersolution.lua ~/.pandoc/filter/
 
 
 
