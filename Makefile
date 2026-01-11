@@ -9,9 +9,9 @@ help: ## Show this help message
 	@awk 'BEGIN {FS = ":.*##"; printf "\n"} /^[a-zA-Z0-9_-]+:.*?##/ { printf "  %-18s %s\n", $$1, $$2 } /^##@/ { printf "\n%s\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
 	@echo ''
 
-install: install-base install-cli-tools install-shell install-docker install-gui install-gui-tools install-offensive install-wordlists install-hardening install-myPcFixe install-my clean ## Install SkillArch
-# install: install-myPcFixe install-my clean ## Install SkillArch
+install: install-base install-cli-tools install-shell install-docker install-gui install-gui-tools install-offensive install-wordlists install-hardening clean ## Install SkillArch
 	@echo "You are all set up! Enjoy ! 🌹"
+
 
 sanity-check:
 	set -x
@@ -91,6 +91,10 @@ install-shell: sanity-check ## Install shell packages
 	ln -sf /opt/skillarch/config/vimrc ~/.vimrc
 	# Set the default user shell to zsh
 	sudo chsh -s /usr/bin/zsh "$$USER" # Logout required to be applied
+
+
+
+
 
 install-docker: sanity-check ## Install docker
 	yes|sudo pacman -S --noconfirm --needed docker docker-compose
@@ -237,17 +241,21 @@ clean: ## Clean up system and remove unnecessary files
 	sudo find /var/log -type f -name "*.gz" -delete
 	sudo find /var/log -type f -exec truncate --size=0 {} \;
 
-install-myPcFixe:
-# sudo tee -a /etc/fstab < ./config/My/fstab > /dev/null
+install-my: install-base install-cli-tools install-shell install-docker install-gui install-gui-tools install-myTools clean ## Install SkillArch
+# install: install-myPcFixe install-my clean ## Install SkillArch
+	@echo "You are all set up! Enjoy ! 🌹"
+
+install-myPcFixe: install-my
+ 	sudo tee -a /etc/fstab < ./config/My/fstab > /dev/null
 	@ln -snf /DATA/Documents ~/Documents
 	@ln -snf /DATA/Obsidian ~/Obsidian
 	@ln -snf /DATA/Projets ~/Projets
 
-install-my:
-#	yes|sudo pacman -Syyu
-#	yes|sudo pacman -Syy
-#	yes|sudo pacman -S --noconfirm --needed drawio-desktop keepassxc obsidian calibre thunderbird darktable simple-scan syncthing
-#	yes|sudo pacman -S --noconfirm --needed texlive-latex  texlive-latexextra  texlive-latexrecommended texlive pandoc-cli
+install-myTools: sanity-check
+	yes|sudo pacman -Syyu
+	yes|sudo pacman -Syy
+	yes|sudo pacman -S --noconfirm --needed drawio-desktop keepassxc obsidian calibre thunderbird darktable simple-scan syncthing freecad inkscape remmina
+	yes|sudo pacman -S --noconfirm --needed texlive-latex  texlive-latexextra texlive-langfrench texlive-fontsextra texlive-latexrecommended texlive pandoc-cli
 	[ ! -d ~/home/Documents/ThemeSSR/ ] && git clone --depth=1 https://gitlab.com/willo22/ThemeSSR.git ~/home/Documents/ThemeSSR/
 	sudo chmod +x ~/home/Documents/ThemeSSR/scripts/*.sh
 	sudo ln -snf ~/home/Documents/ThemeSSR/scripts/*.sh /usr/local/bin/
