@@ -200,7 +200,7 @@ install-hardening: sanity-check ## Install hardening tools
 update: sanity-check ## Update SkillArch
 	@[ -n "$$(git status --porcelain)" ] && echo "Error: git state is dirty, please "git stash" your changes before updating" && exit 1
 	@[ "$$(git rev-parse --abbrev-ref HEAD)" != "main" ] && echo "Error: current branch is not main, please switch to main before updating" && exit 1
-	@git pull
+	@git pull/DATA
 	@echo "SkillArch updated, please run make install to apply changes 🙏"
 
 docker-build:  ## Build lite docker image locally
@@ -235,12 +235,23 @@ clean: ## Clean up system and remove unnecessary files
 	sudo find /var/log -type f -exec truncate --size=0 {} \;
 
 
-install-my: install-base install-cli-tools install-shell install-docker install-gui install-gui-tools isntall-Data install-myTools clean ## Install SkillArch
-# install: install-myPcFixe install-my clean ## Install SkillArch
+install-my: install-cli-tools install-shell install-docker install-gui install-gui-tools intall-Data install-myTools clean ## Install SkillArch
 	@echo "You are all set up! Enjoy ! 🌹"
 
+install-myPortable : pcPortableConf install-my
+
+install-myFixe : pcFixeConf install-my
+
+pcPortableConf : install-base
+		sudo tee -a /etc/fstab < ./config/My/fstabPortable > /dev/null
+		sudo mount /DATA
+
+pcFixeConf : install-base
+		sudo tee -a /etc/fstab < ./config/My/fstabFixe > /dev/null
+		sudo mount /DATA
+
+
 install-Data:
-	sudo tee -a /etc/fstab < ./config/My/fstab > /dev/null
 	@ln -snf /DATA/Documents ~/Documents
 	@ln -snf /DATA/Obsidian ~/Obsidian
 	@ln -snf /DATA/Projets ~/Projets

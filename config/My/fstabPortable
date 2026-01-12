@@ -1,0 +1,4 @@
+/dev/nvme0n1p2	/DATA	ext4	defaults	0	1
+
+10.0.0.2:/volume1/Media/        /DATA/Medias   nfs     defaults   0       0
+
