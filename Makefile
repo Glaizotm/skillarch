@@ -252,6 +252,7 @@ pcFixeConf : install-base
 
 
 install-Data:
+	rmdir ~/Documents
 	@ln -snf /DATA/Documents ~/Documents
 	@ln -snf /DATA/Obsidian ~/Obsidian
 	@ln -snf /DATA/Projets ~/Projets
