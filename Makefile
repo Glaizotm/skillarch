@@ -237,12 +237,12 @@ clean: ## Clean up system and remove unnecessary files
 	sudo find /var/log -type f -exec truncate --size=0 {} \;
 
 
-install-my: install-base install-cli-tools install-shell install-docker install-gui install-gui-tools install-myTools clean ## Install SkillArch
+install-my: install-base install-cli-tools install-shell install-docker install-gui install-gui-tools isntall-Data install-myTools clean ## Install SkillArch
 # install: install-myPcFixe install-my clean ## Install SkillArch
 	@echo "You are all set up! Enjoy ! 🌹"
 
-install-myPcFixe: install-my
- 	sudo tee -a /etc/fstab < ./config/My/fstab > /dev/null
+install-Data:
+	sudo tee -a /etc/fstab < ./config/My/fstab > /dev/null
 	@ln -snf /DATA/Documents ~/Documents
 	@ln -snf /DATA/Obsidian ~/Obsidian
 	@ln -snf /DATA/Projets ~/Projets
