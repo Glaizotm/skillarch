@@ -12,7 +12,6 @@ help: ## Show this help message
 install: install-base install-cli-tools install-shell install-docker install-gui install-gui-tools install-offensive install-wordlists install-hardening clean ## Install SkillArch
 	@echo "You are all set up! Enjoy ! 🌹"
 
-
 sanity-check:
 	set -x
 	@# Ensure we are in /opt/skillarch or /opt/skillarch-original (maintainer only)
@@ -91,10 +90,6 @@ install-shell: sanity-check ## Install shell packages
 	ln -sf /opt/skillarch/config/vimrc ~/.vimrc
 	# Set the default user shell to zsh
 	sudo chsh -s /usr/bin/zsh "$$USER" # Logout required to be applied
-
-
-
-
 
 install-docker: sanity-check ## Install docker
 	yes|sudo pacman -S --noconfirm --needed docker docker-compose
@@ -230,7 +225,7 @@ clean: ## Clean up system and remove unnecessary files
 	yes|sudo pacman -Rns $$(pacman -Qtdq) 2>/dev/null || true
 	rm -rf ~/.cache/pip
 	npm cache clean --force 2>/dev/null || true
-	mise cache clearN
+	mise cache clear
 	go clean -cache -modcache -i -r 2>/dev/null || true
 	sudo rm -rf /var/cache/*
 	rm -rf ~/.cache/*
@@ -240,6 +235,7 @@ clean: ## Clean up system and remove unnecessary files
 	sudo find /var/log -type f -name "*.old" -delete
 	sudo find /var/log -type f -name "*.gz" -delete
 	sudo find /var/log -type f -exec truncate --size=0 {} \;
+
 
 install-my: install-base install-cli-tools install-shell install-docker install-gui install-gui-tools install-myTools clean ## Install SkillArch
 # install: install-myPcFixe install-my clean ## Install SkillArch
@@ -261,7 +257,3 @@ install-myTools: sanity-check
 	sudo ln -snf ~/home/Documents/ThemeSSR/scripts/*.sh /usr/local/bin/
 	[ ! -d ~/.pandoc/filter ] && mkdir -p ~/.pandoc/filter 
 	cp ~/home/Documents/ThemeSSR/scripts/cachersolution.lua ~/.pandoc/filter/
-
-
-
-
